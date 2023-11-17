@@ -4,6 +4,7 @@ package com.pjieyi.controller;
 import com.pjieyi.pojo.Result;
 import com.pjieyi.pojo.User;
 import com.pjieyi.service.UserService;
+import com.pjieyi.utils.Md5Util;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,22 @@ public class UserController {
         }else {
             return Result.error("用户名已存在");
         }
+    }
+
+    @PostMapping("/login")
+    public Result<String> login(@Pattern(regexp = "^\\S{5,16}") String username, @Pattern(regexp = "^\\S{5,16}") String password){
+        //根据用户名查询用户
+        User user = userService.findByUsername(username);
+        if (user ==null ){
+            //用户名不存在
+            return Result.error("用户名错误");
+        }
+        //用户名存在
+        if (Md5Util.getMD5String(password).equals(user.getPassword())) {
+            //密码正确 返回jwt令牌
+            return Result.success("jwt token令牌");
+        }
+        return Result.error("密码错误");
     }
 
 }
