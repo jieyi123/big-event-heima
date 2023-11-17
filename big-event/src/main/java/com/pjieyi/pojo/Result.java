@@ -1,11 +1,13 @@
 package com.pjieyi.pojo;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //统一结果封装
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Result<T> {
 
     private Integer code;  //响应状态码 0-成功 1-失败
@@ -23,8 +25,8 @@ public class Result<T> {
     }
 
     //快速返回操作失败
-    public static Result error(){
-        return new Result(1,"操作失败",null);
+    public static Result error(String message){
+        return new Result(1,message,null);
     }
 
 }
