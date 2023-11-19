@@ -4,6 +4,7 @@ import com.pjieyi.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @Author pjieyi
@@ -18,4 +19,7 @@ public interface UserMapper {
     @Insert("insert into user(username,password,create_time,update_time) " +
             "values (#{username},#{password},now(),now())")
     public void addUser(String username, String password);
+
+    @Update("update user set nickname=#{nickname},email=#{email},update_time=now() where id=#{id}")
+    void updateUser(User user);
 }

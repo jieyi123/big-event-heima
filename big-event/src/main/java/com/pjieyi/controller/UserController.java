@@ -71,4 +71,11 @@ public class UserController {
         return Result.success(userInfo);
     }
 
+    //修改用户信息
+    @PutMapping("/update")
+    public Result update(@RequestBody @Validated User user){
+        userService.updateUser(user);
+        return Result.success();
+    }
+
 }
