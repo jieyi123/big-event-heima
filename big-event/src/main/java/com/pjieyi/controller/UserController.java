@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,4 +87,27 @@ public class UserController {
         return Result.success();
     }
 
+    //更新用户密码
+    @PatchMapping("/updatePwd")
+    public Result updatePwd(@RequestBody Map<String,String> params){
+        String oldPwd=params.get("old_pwd");
+        String newPwd=params.get("new_pwd");
+        String rePwd=params.get("re_pwd");
+        //校验参数
+        if (!StringUtils.hasLength(oldPwd) || !StringUtils.hasLength(newPwd)|| !StringUtils.hasLength(rePwd)){
+            return Result.error("参数不合法");
+        }
+        if (!newPwd.equals(rePwd)){
+            return Result.error("两次密码不正确");
+        }
+        if (newPwd.length()<5||rePwd.length()<5){
+            return Result.error("密码最少5位数以上");
+        }
+        User user=userService.findByUsername(ThreadLocalUtil.getUsername());
+        if (!user.getPassword().equals(Md5Util.getMD5String(oldPwd))){
+            return Result.error("原密码不正确");
+        }
+        userService.updatePwd(rePwd);
+        return Result.success();
+    }
 }

@@ -1,5 +1,7 @@
 package com.pjieyi.utils;
 
+import java.util.Map;
+
 /**
  * @Author pjieyi
  * @Description
@@ -22,5 +24,15 @@ public class ThreadLocalUtil {
     //清除ThreadLocal防止内存泄露
     public static void remove(){
         THREAD_LOCAL.remove();
+    }
+
+    public static Integer getUserId(){
+        Map<String,Object> userMap=ThreadLocalUtil.get();
+        return (Integer) userMap.get("id");
+    }
+
+    public static String getUsername(){
+        Map<String,Object> userMap=ThreadLocalUtil.get();
+        return (String) userMap.get("username");
     }
 }

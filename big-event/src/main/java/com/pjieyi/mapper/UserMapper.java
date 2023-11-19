@@ -25,4 +25,7 @@ public interface UserMapper {
 
     @Update("update user set user_pic=#{avatarUrl},update_time=now() where id=#{userId}")
     void updateAvatar(String avatarUrl, Integer userId);
+
+    @Update("update user set password=#{rePwd},update_time=now() where id=#{userId}")
+    void updatePwd(String rePwd, Integer userId);
 }

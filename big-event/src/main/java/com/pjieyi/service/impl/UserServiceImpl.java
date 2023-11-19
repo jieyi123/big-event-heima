@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
         Integer userId=(Integer) userMap.get("id");
         userMapper.updateAvatar(avatarUrl,userId);
     }
+
+    @Override
+    public void updatePwd(String rePwd) {
+        userMapper.updatePwd(Md5Util.getMD5String(rePwd),ThreadLocalUtil.getUserId());
+    }
 }
