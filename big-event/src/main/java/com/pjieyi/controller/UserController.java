@@ -4,6 +4,7 @@ package com.pjieyi.controller;
 import com.pjieyi.pojo.Result;
 import com.pjieyi.pojo.User;
 import com.pjieyi.service.UserService;
+import com.pjieyi.utils.JwtUtil;
 import com.pjieyi.utils.Md5Util;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author pjieyi
@@ -49,7 +53,11 @@ public class UserController {
         //用户名存在
         if (Md5Util.getMD5String(password).equals(user.getPassword())) {
             //密码正确 返回jwt令牌
-            return Result.success("jwt token令牌");
+            Map<String,Object> map=new HashMap<>();
+            map.put("username",user.getUsername());
+            map.put("id",user.getId());
+            String token = JwtUtil.genToken(map);
+            return Result.success(token);
         }
         return Result.error("密码错误");
     }

@@ -36,14 +36,14 @@ public class JwtTest {
     @Test
     public void testParse(){
         //定义字符串模拟用户传递过来的token
-        String token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" +
-                ".eyJleHAiOjE3MDAyMzYzNjEsInVzZXIiOnsiaWQiOjEsInVzZXJuYW1lIjoi5byg5LiJIn19" +
-                ".-KENaxOfbIFeBdq7YTp9fm2IchE1OVcZ2As2gD7shwo";
+        String token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDAzNzE3NzQsInVzZXIiOnsiaWQiOjEsInVzZXJuYW1lIjoi5byg5LiJIn19.TlJ8NaR6ia6C2eiQYoEJ-6v2TZYFYka1OwOGdlIEtH0";
         //生成JWT验证器
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("pjieyi")).build();
         DecodedJWT decodedJWT = jwtVerifier.verify(token);//验证token 生成一个解析后的JWT对象
-        Map<String, Claim> claims = decodedJWT.getClaims();
-        System.out.println(claims.get("user"));
+        //Map<String, Claim> claims = decodedJWT.getClaims();
+        //System.out.println(claims.get("user"));
+        Map<String, Object> map = decodedJWT.getClaim("user").asMap(); //如果token错误就会出现异常
+        System.out.println(map.get("username"));//张三
     }
     //如果篡改了头部和载荷部分的数据，那么验证失败
     //如果密钥改了，验证失败
