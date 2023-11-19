@@ -4,8 +4,11 @@ import com.pjieyi.mapper.UserMapper;
 import com.pjieyi.pojo.User;
 import com.pjieyi.service.UserService;
 import com.pjieyi.utils.Md5Util;
+import com.pjieyi.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * @Author pjieyi
@@ -32,5 +35,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userMapper.updateUser(user);
+    }
+
+    @Override
+    public void updateAvatar(String avatarUrl) {
+        Map<String,Object> userMap=ThreadLocalUtil.get();
+        Integer userId=(Integer) userMap.get("id");
+        userMapper.updateAvatar(avatarUrl,userId);
     }
 }

@@ -8,6 +8,7 @@ import com.pjieyi.utils.JwtUtil;
 import com.pjieyi.utils.Md5Util;
 import com.pjieyi.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -71,10 +72,17 @@ public class UserController {
         return Result.success(userInfo);
     }
 
-    //修改用户信息
+    //更新用户信息
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user){
         userService.updateUser(user);
+        return Result.success();
+    }
+
+    //修改头像
+    @PatchMapping("/updateAvatar")
+    public Result updateAvatar(@RequestParam @URL String avatarUrl){ //@URL保证是一个合法的URL地址
+        userService.updateAvatar(avatarUrl);
         return Result.success();
     }
 
