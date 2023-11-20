@@ -18,4 +18,7 @@ public interface CategoryService {
 
     //查询文章分类
     List<Category> selectCategory();
+
+    //根据文章id查询分类信息
+    Category findById(Integer id);
 }

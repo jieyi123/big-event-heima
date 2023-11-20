@@ -28,4 +28,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> selectCategory() {
         return categoryMapper.select(ThreadLocalUtil.getUserId());
     }
+
+    @Override
+    public Category findById(Integer id) {
+        return categoryMapper.findById(id);
+    }
 }
