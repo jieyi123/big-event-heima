@@ -7,6 +7,8 @@ import com.pjieyi.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author pjieyi
  * @Description
@@ -20,5 +22,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void addCategory(Category category) {
         category.setId(ThreadLocalUtil.getUserId());
         categoryMapper.addCategory(category);
+    }
+
+    @Override
+    public List<Category> selectCategory() {
+        return categoryMapper.select(ThreadLocalUtil.getUserId());
     }
 }
