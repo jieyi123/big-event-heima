@@ -21,13 +21,13 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public Result addCategory(@RequestBody @Validated Category category){
+    public Result addCategory(@RequestBody @Validated(Category.add.class) Category category){
         categoryService.addCategory(category);
         return Result.success();
     }
 
     @GetMapping
-    public Result<List<Category>> selectCategory(){
+    public Result<List<Category>> list(){
         List<Category> list = categoryService.selectCategory();
         return Result.success(list);
     }
@@ -39,7 +39,7 @@ public class CategoryController {
     }
 
     @PutMapping
-    public Result update(@RequestBody @Validated Category category){
+    public Result update(@RequestBody @Validated(Category.update.class) Category category){
         categoryService.update(category);
         return Result.success();
     }
