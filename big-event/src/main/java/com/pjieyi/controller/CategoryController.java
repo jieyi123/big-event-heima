@@ -44,4 +44,10 @@ public class CategoryController {
         return Result.success();
     }
 
+    @DeleteMapping
+    public Result delete(@RequestParam Integer id){
+        categoryService.deleteById(id);
+        return Result.success();
+    }
+
 }
