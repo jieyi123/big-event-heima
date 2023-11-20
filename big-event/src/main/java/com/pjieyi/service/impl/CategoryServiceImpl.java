@@ -33,4 +33,10 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(Integer id) {
         return categoryMapper.findById(id);
     }
+
+    @Override
+    public void update(Category category) {
+
+        categoryMapper.update(category);
+    }
 }
