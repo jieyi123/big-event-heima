@@ -1,12 +1,13 @@
 package com.pjieyi.controller;
 
+import com.pjieyi.pojo.Article;
 import com.pjieyi.pojo.Result;
+import com.pjieyi.service.ArticleService;
 import com.pjieyi.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,8 +20,17 @@ import java.util.Map;
 @RequestMapping("/article")
 public class ArticleController {
 
+    @Autowired
+    private ArticleService articleService;
+
     @GetMapping("/list")
     public Result list(){
         return Result.success("所有文章数据。。。");
+    }
+
+    @PostMapping
+    public Result addArticle(@RequestBody @Validated Article article){
+        articleService.addArticle(article);
+        return Result.success();
     }
 }
