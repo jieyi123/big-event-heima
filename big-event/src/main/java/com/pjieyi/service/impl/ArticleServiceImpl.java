@@ -37,9 +37,12 @@ public class ArticleServiceImpl implements ArticleService {
         //开启分页查询
         PageHelper.startPage(pageNum,pageSize);
         List<Article> list = articleMapper.list(ThreadLocalUtil.getUserId(), categoryId, state);
-        Page<Article> page=(Page<Article>)list;
-        pb.setTotal(page.getTotal());
-        pb.setItems(page.getResult());
+        //Page<Article> page=(Page<Article>)list;
+        //pb.setTotal(page.getTotal());
+        //pb.setItems(page.getResult());
+        PageInfo<Article> info=new PageInfo<>(list);
+        pb.setTotal(info.getTotal());
+        pb.setItems(info.getList());
         return pb;
     }
 }
