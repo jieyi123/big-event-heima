@@ -2,8 +2,11 @@ package com.pjieyi.mapper;
 
 import com.pjieyi.pojo.Article;
 import com.pjieyi.pojo.PageBean;
+import com.pjieyi.pojo.Result;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -22,4 +25,10 @@ public interface ArticleMapper {
 
     List<Article> list(Integer createUser, Integer categoryId, String state);
 
+    @Select("select * from article where id=#{id}")
+    Article findById(Integer id);
+
+    @Update("update article set title=#{title},cover_img=#{coverImg},content=#{content},state=#{state},category_id=#{categoryId},update_time=now() " +
+            " where id=#{id} ")
+    void update(Article article);
 }

@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.pjieyi.mapper.ArticleMapper;
 import com.pjieyi.pojo.Article;
 import com.pjieyi.pojo.PageBean;
+import com.pjieyi.pojo.Result;
 import com.pjieyi.service.ArticleService;
 import com.pjieyi.utils.ThreadLocalUtil;
 import org.apache.ibatis.annotations.Select;
@@ -44,5 +45,16 @@ public class ArticleServiceImpl implements ArticleService {
         pb.setTotal(info.getTotal());
         pb.setItems(info.getList());
         return pb;
+    }
+
+    @Override
+    public Article findById(Integer id) {
+        return articleMapper.findById(id);
+    }
+
+    @Override
+    public void update(Article article) {
+        article.setCreateUser(ThreadLocalUtil.getUserId());
+        articleMapper.update(article);
     }
 }

@@ -37,4 +37,18 @@ public class ArticleController {
         articleService.addArticle(article);
         return Result.success();
     }
+
+    @GetMapping("/detail")
+    public Result<Article> detail(Integer id){
+        Article article=articleService.findById(id);
+        return Result.success(article);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody @Validated Article article){
+        articleService.update(article);
+        return Result.success();
+    }
+
+
 }
