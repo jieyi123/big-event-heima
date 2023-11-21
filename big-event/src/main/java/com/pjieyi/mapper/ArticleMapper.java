@@ -1,8 +1,11 @@
 package com.pjieyi.mapper;
 
 import com.pjieyi.pojo.Article;
+import com.pjieyi.pojo.PageBean;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author pjieyi
@@ -16,4 +19,7 @@ public interface ArticleMapper {
             "" +
             " values(#{title},#{content},#{coverImg},#{state},#{categoryId},#{createUser},now(),now())")
     public void addArticle(Article article);
+
+    List<Article> list(Integer createUser, Integer categoryId, String state);
+
 }

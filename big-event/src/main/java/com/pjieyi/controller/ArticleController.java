@@ -1,6 +1,7 @@
 package com.pjieyi.controller;
 
 import com.pjieyi.pojo.Article;
+import com.pjieyi.pojo.PageBean;
 import com.pjieyi.pojo.Result;
 import com.pjieyi.service.ArticleService;
 import com.pjieyi.utils.JwtUtil;
@@ -23,9 +24,12 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/list")
-    public Result list(){
-        return Result.success("所有文章数据。。。");
+    @GetMapping
+    public Result<PageBean<Article>> list(Integer pageNum,Integer pageSize,
+                                          @RequestParam(required = false) Integer categoryId,
+                                          @RequestParam(required = false) String state){
+        PageBean<Article> articleList=articleService.list(pageNum,pageSize,categoryId,state);
+        return Result.success(articleList);
     }
 
     @PostMapping
