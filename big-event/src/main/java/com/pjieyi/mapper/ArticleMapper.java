@@ -1,8 +1,6 @@
 package com.pjieyi.mapper;
 
 import com.pjieyi.pojo.Article;
-import com.pjieyi.pojo.PageBean;
-import com.pjieyi.pojo.Result;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

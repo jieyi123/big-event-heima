@@ -9,4 +9,5 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true  # 开启数据库表中的字段下划线驼峰命名法
+  mapper-locations: classpath*:/mapper/*.xml #配置xml映射
 
