@@ -57,4 +57,9 @@ public class ArticleServiceImpl implements ArticleService {
         article.setCreateUser(ThreadLocalUtil.getUserId());
         articleMapper.update(article);
     }
+
+    @Override
+    public void delete(Integer id) {
+        articleMapper.delete(id);
+    }
 }

@@ -6,6 +6,7 @@ import com.pjieyi.pojo.Result;
 import com.pjieyi.service.ArticleService;
 import com.pjieyi.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,12 @@ public class ArticleController {
     @PutMapping
     public Result update(@RequestBody @Validated Article article){
         articleService.update(article);
+        return Result.success();
+    }
+
+    @DeleteMapping
+    public Result delete(@RequestParam Integer id){
+        articleService.delete(id);
         return Result.success();
     }
 

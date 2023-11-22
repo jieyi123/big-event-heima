@@ -3,10 +3,7 @@ package com.pjieyi.mapper;
 import com.pjieyi.pojo.Article;
 import com.pjieyi.pojo.PageBean;
 import com.pjieyi.pojo.Result;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,4 +28,7 @@ public interface ArticleMapper {
     @Update("update article set title=#{title},cover_img=#{coverImg},content=#{content},state=#{state},category_id=#{categoryId},update_time=now() " +
             " where id=#{id} ")
     void update(Article article);
+
+    @Delete("delete from article where id=#{id}")
+    void delete(Integer id);
 }
