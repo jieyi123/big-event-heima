@@ -32,6 +32,14 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.addArticle(article);
     }
 
+    /**
+     *
+     * @param pageNum 当前页
+     * @param pageSize 每页大小
+     * @param categoryId
+     * @param state
+     * @return
+     */
     @Override
     public PageBean<Article> list(Integer pageNum, Integer pageSize, Integer categoryId, String state) {
         PageBean<Article> pb=new PageBean<>();
