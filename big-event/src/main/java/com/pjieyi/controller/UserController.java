@@ -10,6 +10,7 @@ import com.pjieyi.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author pjieyi
@@ -29,6 +31,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @PostMapping("/register")
     public Result register(@Pattern(regexp = "^\\S{5,16}") String username, @Pattern(regexp = "^\\S{5,16}") String password){
@@ -58,6 +63,7 @@ public class UserController {
             map.put("username",user.getUsername());
             map.put("id",user.getId());
             String token = JwtUtil.genToken(map);
+            redisTemplate.opsForValue().set(token,token,1, TimeUnit.HOURS);
             return Result.success(token);
         }
         return Result.error("密码错误");
@@ -89,7 +95,7 @@ public class UserController {
 
     //更新用户密码
     @PatchMapping("/updatePwd")
-    public Result updatePwd(@RequestBody Map<String,String> params){
+    public Result updatePwd(@RequestBody Map<String,String> params,@RequestHeader("Authorization") String token){
         String oldPwd=params.get("old_pwd");
         String newPwd=params.get("new_pwd");
         String rePwd=params.get("re_pwd");
@@ -108,6 +114,7 @@ public class UserController {
             return Result.error("原密码不正确");
         }
         userService.updatePwd(rePwd);
+        redisTemplate.opsForValue().getOperations().delete(token);
         return Result.success();
     }
 }
