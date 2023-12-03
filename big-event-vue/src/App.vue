@@ -1,8 +1,9 @@
 <script setup>
+
 </script>
 
 <template>
-  vue项目
+  <router-view></router-view>
 </template>
 
 
