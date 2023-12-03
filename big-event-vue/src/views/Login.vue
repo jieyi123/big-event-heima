@@ -46,10 +46,14 @@ const register = async () => {
 };
 
 import {useRouter} from 'vue-router'
+import {useTokenStore} from '@/stores/token.js'
 const router=useRouter()
+const tokenStore=useTokenStore();
 const login = async () => {
   let result = await userLoginService(registerData.value);
   ElMessage.success('登录成功')
+  //把得到的token存储在pinia中
+  tokenStore.setToken(result.data)
   //跳转带首页，路由完成跳转
   router.push('/')
 };
