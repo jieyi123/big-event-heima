@@ -15,5 +15,6 @@
             </if>
             and create_user=#{createUser}
         </where>
+        order by update_time desc
     </select>
 </mapper>

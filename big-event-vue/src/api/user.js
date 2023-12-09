@@ -12,11 +12,16 @@ export const userRegisterService =(registerData)=>{
     return request.post('/user/register',parms);
 }
 
-//注册函数
+//登录
 export const userLoginService =(registerData)=>{
     const parms=new URLSearchParams()
     for(let key in registerData){
         parms.append(key,registerData[key]);
     }
     return request.post('/user/login',parms);
+}
+
+//获取用户个人信息
+export const userInfoGetService=()=>{
+    return request.get('/user/userInfo');
 }
