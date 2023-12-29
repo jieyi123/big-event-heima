@@ -10,9 +10,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
-
 /**
  * @Author pjieyi
  * @Description
@@ -50,12 +48,9 @@ public class ArticleController {
         articleService.update(article);
         return Result.success();
     }
-
     @DeleteMapping
     public Result delete(@RequestParam Integer id){
         articleService.delete(id);
         return Result.success();
     }
-
-
 }
